@@ -20,6 +20,7 @@
   height: 100%;
   width: 100%;
   font-family: 'JetBrains Mono', monospace;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .editorNav {
@@ -30,6 +31,7 @@
   align-items: center;
   border-top: solid 1px;
   border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .btnContainer {
@@ -43,7 +45,7 @@
   border-radius: 0.25rem;
   font-size: 1.25rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .outputWindow {
@@ -58,6 +60,7 @@
   backdrop-filter: blur(10px);
   border-top: solid 1px;
   border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .terminaltitle {
@@ -72,7 +75,8 @@
   padding: 1rem;
   height: 25vh;
   border-top: solid 1px;
-  border-bottom: solid 1.5rem;
+  border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 /* ===== DARK THEME (Mocha) ===== */
@@ -93,13 +97,13 @@
 }
 
 .dark-theme .outputWindow {
-  background-color: #1e1e2ecc;
+  background-color: rgba(30, 30, 46, 0.85);
   color: var(--ctp-mocha-text);
   border-color: var(--ctp-mocha-accent);
 }
 
 .dark-theme .outPut {
-  background-color: #11111bcc;
+  background-color: rgba(17, 17, 27, 0.85);
   color: var(--ctp-mocha-text);
   border-color: var(--ctp-mocha-accent);
 }
@@ -117,18 +121,18 @@
 }
 
 .light-theme .btn:hover {
-  background: var(--ctp-latte-text);
+  background: var(--ctp-latte-accent);
   color: var(--ctp-latte-base);
 }
 
 .light-theme .outputWindow {
-  background-color: #f2f3f5cc;
+  background-color: rgba(239, 241, 245, 0.85);
   color: var(--ctp-latte-text);
   border-color: var(--ctp-latte-accent);
 }
 
 .light-theme .outPut {
-  background-color: #e6e9efcc;
+  background-color: rgba(230, 233, 239, 0.85);
   color: var(--ctp-latte-text);
   border-color: var(--ctp-latte-accent);
 }
