@@ -4,6 +4,7 @@ import './index.css'
 import 'remixicon/fonts/remixicon.css'
 import './Styles/signup.css'
 import './Styles/editor.css'
+import './Styles/files.css';
 import './Styles/userDashboard.css'
 import App from './App.jsx'
 

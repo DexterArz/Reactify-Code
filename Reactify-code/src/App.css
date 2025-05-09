@@ -9,5 +9,7 @@
   height: 100%;
   width: 100%;
   background-color: black;
-
+  /* font-family: 'JetBrains Mono', monospace;
+   */
+    font-family: 'Fira Code', monospace;
   }

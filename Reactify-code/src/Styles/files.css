@@ -1,0 +1,20 @@
+
+.fileBg{
+  padding: 1rem;
+  width: 100%;
+  background: #CBA6F7;
+  border: none;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lanIcon i {
+  font-size: 2rem;
+}
+.lanIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

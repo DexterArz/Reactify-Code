@@ -1,0 +1,167 @@
+.dasMain {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.dasNav {
+  padding: 1.75rem;
+  height: 6rem;
+  width: 100%;
+  color: #b4befe;
+  border-bottom: 1px solid #cba6f7;
+  border-top: 1px solid #cba6f7;
+  background: #313244;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* allow wrapping without column layout */
+}
+
+.toggles {
+  display: flex;
+  gap: 2rem;
+}
+
+.fileManager {
+  height: calc(100vh - 6rem);
+  width: 100%;
+  background: #b4befe;
+  color: #8839ef;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.part1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.part1 h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.folder {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 2rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.folder > * {
+  flex: 0 0 calc(25% - 0.5rem); /* 4 per row desktop */
+  box-sizing: border-box;
+}
+
+
+.createFile {
+  width: 24vw;
+  height: 24vh;
+  padding: 1rem;
+  border: 1px solid #31324457;
+  border-radius: 1.25rem;
+  background: #31324457;
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+}
+.dasMain .btn {
+  background: #8839ef;
+}
+.createFile .btn {
+  background: #8839ef;
+}
+.dasMain .btn:hover {
+  background: #b4befe;
+}
+
+.createFile .btn:hover {
+  background: #b4befe;
+}
+
+.field {
+  width: 90%;
+  color: var(--ctp-mocha-accent);
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--ctp-mocha-subtle);
+  padding: 8px 4px;
+  outline: none;
+  font-size: 1rem;
+  caret-color: var(--ctp-mocha-accent);
+  box-sizing: border-box;
+}
+
+.Ctitle h4 {
+  font-size: 1.25rem;
+}
+
+.Cinput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+
+/* Mobile: 2 per row */
+@media (max-width: 768px) {
+  .dasNav {
+    padding: 1rem;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .toggles {
+    gap: 1rem;
+  }
+
+  .part1 {
+    padding: 1rem;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .folder {
+    padding: 1rem;
+  }
+
+  .folder > * {
+    flex: 0 0 calc(50% - 0.5rem); /* 2 per row mobile */
+  }
+
+  .createFile {
+    width: 90vw;
+    height: auto;
+    padding: 1.5rem;
+    /* display: none; */
+    /* flex-direction: column; */
+  }
+
+  .field {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .Cinput {
+    width: 100%;
+  }
+}
