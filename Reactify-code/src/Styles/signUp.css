@@ -1,18 +1,27 @@
-.signupBg{
+:root {
+  --ctp-mocha-base: #1e1e2e;
+  --ctp-mocha-surface: #313244;
+  --ctp-mocha-overlay: #45475a;
+  --ctp-mocha-text: #cdd6f4;
+  --ctp-mocha-accent: #cba6f7;
+  --ctp-mocha-subtle: #a6adc8;
+
+}.signupPage.dark-theme .signupBg {
   width: 100vw;
   height: 100vh;
   background-image: url(/Users/akashrevankar/Developer/Reactify-code/src/assets/flowers-6.jpg);
-  background-color: #F5E0DC;
-  background-size:100%;
+  background-color: var(--ctp-mocha-base);
+  background-size: 100%;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   padding: 5rem;
 }
-.signUp{
-  border: solid #CBA6F7 1px;
+
+.signupPage.dark-theme .signUp {
+  border: 1px solid var(--ctp-mocha-accent);
   border-radius: 2rem;
-  background: #181825d1;
+  background: rgba(24, 24, 37, 0.82);
   height: 90vh;
   width: 50vw;
   display: flex;
@@ -20,21 +29,24 @@
   gap: 2rem;
   backdrop-filter: blur(10px);
 }
-.title{
-  color: #cdd6f4;
+
+.signupPage.dark-theme .title h1 {
+  font-size: 2rem;
+}
+.signupPage.dark-theme .title {
+  color: var(--ctp-mocha-text);
   padding: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.title h1{
-  font-size: 2.75vw;
+
+.signupPage.dark-theme .title span {
+  color: var(--ctp-mocha-accent);
 }
-.title span{
-  color: #CBA6F7;
-}
-.inputs{
+
+.signupPage.dark-theme .inputs {
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
@@ -42,62 +54,41 @@
   align-items: center;
   gap: 4rem;
 }
-.field{
+
+.signupPage.dark-theme .field {
   width: 90%;
-  color: #CBA6F7;
+  color: var(--ctp-mocha-accent);
   background: none;
   border: none;
-  border-bottom: 2px solid #B4BEFE;
+  border-bottom: 2px solid var(--ctp-mocha-subtle);
   padding: 8px 4px;
   outline: none;
   font-size: 1rem;
-  caret-color: #CBA6F7;
-
-}
-.field::placeholder{
-  color: #CBA6F7;
+  caret-color: var(--ctp-mocha-accent);
 }
 
-.sup-btn{
-  background: #CBA6F7;
+.signupPage.dark-theme .field::placeholder {
+  color: var(--ctp-mocha-accent);
+}
+
+.signupPage.dark-theme .sup-btn {
+  background: var(--ctp-mocha-accent);
   border: none;
   border-radius: 0.75rem;
   padding: 1.25rem;
   width: 45%;
   font-size: 1.25rem;
+  color: var(--ctp-mocha-base);
 }
 
+/* Responsive */
 @media (max-width: 600px) {
-  .signupBg{
-    width: 100vw;
-    height: 100vh;
-    background-image: url(/Users/akashrevankar/Developer/Reactify-code/src/assets/flowers-6.jpg);
-    background-size:cover;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .signupPage.dark-theme .signupBg {
     padding: 1.5rem;
-  }
-  .signUp{
-    border: solid #B4BEFE 1px;
-    border-radius: 2rem;
-    background: #181825d1;
-    height: 90vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    backdrop-filter: blur(10px);
-  }
-  .title{
-    color: #cdd6f4;
-    padding: 4rem;
-    display: flex;
-    align-items: center;
+    background-size: cover;
     justify-content: center;
   }
-  .title h1{
-    font-size: 4.75vh;
+  .signupPage.dark-theme .signUp {
+    width: 100vw;
   }
 }
