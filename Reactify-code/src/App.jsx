@@ -5,8 +5,8 @@ import Userdashboard from './pages/Userdashboard'
 const App = () => {
   return (
     <>
-  {/* <Editor></Editor> */}
-  <Userdashboard></Userdashboard>
+  <Editor></Editor>
+  {/* <Userdashboard></Userdashboard> */}
     </>
   )
 }
