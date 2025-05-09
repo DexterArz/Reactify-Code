@@ -1,126 +1,138 @@
-.editorNav{
-  width: 100vw;
-  padding: 1.25rem;
-  border-bottom: solid #CBA6F7 1px;
-  border-top: solid #CBA6F7  1px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color:#B4BEFE;
+/* ===== CATPPUCCIN VARIABLES ===== */
+:root {
+  --ctp-mocha-base: #1e1e2e;
+  --ctp-mocha-surface: #313244;
+  --ctp-mocha-overlay: #585b70;
+  --ctp-mocha-text: #cdd6f4;
+  --ctp-mocha-accent: #cba6f7;
+
+  --ctp-latte-base: #eff1f5;
+  --ctp-latte-surface: #e6e9ef;
+  --ctp-latte-overlay: #dce0e8;
+  --ctp-latte-text: #4c4f69;
+  --ctp-latte-accent: #ddb6f2;
 }
-.editor{
+
+/* ===== GENERAL ===== */
+.editor {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-}
-.btn{
- padding: 0.25rem;
- padding-left: 0.75rem;
- padding-right: 0.75rem;
- border: none;
- border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.btn i{
-font-size: 1.25rem
- }
- .btn:hover{
-  background: #CBA6F7;
- }
-.btnContainer{
+.editorNav {
+  width: 100vw;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btnContainer {
   display: flex;
   gap: 1.75rem;
 }
+
+.btn {
+  padding: 0.25rem 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
 .outputWindow {
-  color: #B4BEFE;
-  border-top: #CBA6F7 solid 1px;
-  border-bottom: #CBA6F7 solid 1px;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #1e1e2e54;
-  z-index: 999; /* on top */
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  z-index: 999;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.terminaltitle{
-  padding: 0.50rem;
+.terminaltitle {
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-.outPut{
-  overflow:auto;
+
+.outPut {
+  overflow: auto;
   padding: 1rem;
-  border-top: #CBA6F7 solid 1px;
-  border-bottom: #CBA6F7 solid 1.5rem;
-  width: 100%;
   height: 25vh;
-  background: #11111b54;
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Common styles */
-.editorNav, .outputWindow, .terminaltitle, .outPut {
-  transition: all 0.3s ease;
-}
-
-/* DARK THEME */
+/* ===== DARK THEME (Mocha) ===== */
 .dark-theme .editorNav {
-  background-color: #1E1E2E;
-  color: #B4BEFE;
-  border-color: #CBA6F7;
+  background-color: var(--ctp-mocha-base);
+  color: var(--ctp-mocha-text);
+  border-color: var(--ctp-mocha-accent);
 }
 
 .dark-theme .btn {
-  background: #313244;
-  color: #B4BEFE;
+  background: var(--ctp-mocha-surface);
+  color: var(--ctp-mocha-text);
 }
 
 .dark-theme .btn:hover {
-  background: #CBA6F7;
-  color: #1E1E2E;
+  background: var(--ctp-mocha-accent);
+  color: var(--ctp-mocha-base);
 }
 
 .dark-theme .outputWindow {
-  background-color: #1e1e2e54;
-  color: #B4BEFE;
+  background-color: rgba(30, 30, 46, 0.85);
+  color: var(--ctp-mocha-text);
+  border-color: var(--ctp-mocha-accent);
 }
 
 .dark-theme .outPut {
-  background-color: #11111b54;
-  color: #B4BEFE;
+  background-color: rgba(17, 17, 27, 0.85);
+  color: var(--ctp-mocha-text);
+  border-color: var(--ctp-mocha-accent);
 }
 
-
-/* LIGHT THEME */
+/* ===== LIGHT THEME (Latte) ===== */
 .light-theme .editorNav {
-  background-color: #EFF1F5;
-  color: #4C4F69;
-  border-color: #DDB6F2;
+  background-color: var(--ctp-latte-base);
+  color: var(--ctp-latte-text);
+  border-color: var(--ctp-latte-accent);
 }
 
 .light-theme .btn {
-  background: #DCE0E8;
-  color: #4C4F69;
+  background: var(--ctp-latte-overlay);
+  color: var(--ctp-latte-text);
 }
 
 .light-theme .btn:hover {
-  background: #1E1E2E;
-  color: #EFF1F5;
+  background: var(--ctp-latte-accent);
+  color: var(--ctp-latte-base);
 }
 
 .light-theme .outputWindow {
-  background-color: #f2f3f5cc;
-  color: #4C4F69;
+  background-color: rgba(239, 241, 245, 0.85);
+  color: var(--ctp-latte-text);
+  border-color: var(--ctp-latte-accent);
 }
 
 .light-theme .outPut {
-  background-color: #e6e9efcc;
-  color: #4C4F69;
+  background-color: rgba(230, 233, 239, 0.85);
+  color: var(--ctp-latte-text);
+  border-color: var(--ctp-latte-accent);
 }

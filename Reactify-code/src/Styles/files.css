@@ -1,0 +1,28 @@
+.fileBg {
+  padding: 1rem;
+  width: 100%;
+  background: var(--ctp-mocha-surface0); /* dark card bg */
+  border: none;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--ctp-mocha-text); /* readable on dark bg */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* subtle depth */
+  transition: background 0.3s ease;
+}
+
+.fileBg:hover {
+  background: var(--ctp-mocha-mantle); /* slight hover change */
+}
+
+.lanIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.lanIcon i {
+  font-size: 2rem;
+  color: var(--ctp-mocha-lavender); /* add some flair */
+}
