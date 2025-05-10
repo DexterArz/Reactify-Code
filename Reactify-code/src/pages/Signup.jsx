@@ -44,17 +44,31 @@ const Signup = () => {
           <div className="inputs">
             <div className="inputWrapper">
               <FaUser className="icon" />
-              <input className="field" type="text" placeholder="Username" />
+              <input className="field" type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={handleChange} />
             </div>
             <div className="inputWrapper">
               <FaEnvelope className="icon" />
-              <input className="field" type="email" placeholder="Email" />
+              <input className="field" type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange} />
             </div>
             <div className="inputWrapper">
               <FaLock className="icon" />
-              <input className="field" type="password" placeholder="Password" />
+              <input className="field" type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange} />
             </div>
-            <button className="sup-btn">Sign Up</button>
+            <button className="sup-btn" type="submit" disabled={loading}>
+              {loading ? "Signing up..." : "Sign Up"}
+            </button>
           </div>
         </form>
       </div>
