@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 const Signup = () => {
   const [formData, setFormData] = useState({ email: "", username: "", password: "" });

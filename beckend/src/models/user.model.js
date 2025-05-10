@@ -21,8 +21,7 @@ const UserSchema = new Schema(
           },
           files: [
             {
-              type: Schema.Types.ObjectId,
-              ref: "file",
+              type: Schema.Types.Mixed
             },
           ],
           password: {
