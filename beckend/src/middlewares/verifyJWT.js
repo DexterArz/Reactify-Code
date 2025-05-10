@@ -3,11 +3,13 @@ import {User} from '../models/user.model.js'
 
 
 export const verifyJWT = async (req,res,next)=>{
-    const token = req.cookies.token || req.header("Authorization")?.replace("Bearer ","")
-    // console.log(`No token detected ${token}`);
+    console.log(req.cookies.token);
+    
+    const token = req.cookies?.token || req.header("Authorization")?.replace("Bearer ","")
+    console.log(`No token detected ${token}`);
 
     if(!token){
-        console.log(`No token detected`);
+        console.log(`No token1 detected`);
         
         return res.status(401).json({ error: "Unauthorized: Token missing" });
     }

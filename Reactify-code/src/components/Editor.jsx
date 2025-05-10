@@ -1,28 +1,64 @@
 import React, { useEffect, useState } from "react";
 import EditorTab, { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Editor = () => {
   const monaco = useMonaco();
+  const { state } = useLocation();
   const [theme, setTheme] = useState("catppuccin-dark");
   const [currentLanguage, setCurrentLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [value, setValue] = useState("// start writing your code");
 
+  // Load file content if passed via state
+  useEffect(() => {
+    if (state) {
+      setValue(state.content);
+      setCurrentLanguage(state.language);
+    }
+  }, [state]);
+
   const Api = axios.create({
     baseURL: "https://emkc.org/api/v2/piston",
   });
 
+  // Run code using the Piston API
   const runCode = async () => {
     try {
       const resp = await Api.post("/execute", {
-        language: "javascript",
+        language: currentLanguage,
         version: "18.15.0",
         files: [{ content: value }],
       });
       setOutput(resp.data.run.output);
     } catch (err) {
       setOutput(`Error: ${err.response?.data?.message || err.message}`);
+    }
+  };
+
+  const saveFile = async () => {
+    try {
+      const fileData = {
+        fileName: state?.fileName || "Untitled2",
+        content: value,
+        language: currentLanguage,
+      };
+
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/file/upload`, fileData,{
+  withCredentials: true,   // Ensures cookies are sent with the request
+});
+
+console.log(response);
+
+
+      if (response.status === 201) {
+        alert("File saved successfully!");
+      } else {
+        alert("Error saving file: " + response.data.error);
+      }
+    } catch (err) {
+      alert("Failed to save file: " + (err.response?.data?.message || err.message));
     }
   };
 
@@ -80,26 +116,16 @@ const Editor = () => {
 
   return (
     <div className={`editor ${theme === "catppuccin-dark" ? "dark-theme" : "light-theme"}`}>
-      <div className="outputWindow">
-        <div className="terminaltitle">
-          <h1><i className="ri-terminal-line"></i> output</h1>
-        </div>
-        <div className="outPut">
-          {output.split("\n").map((line, index) => (
-            <div key={index} className="output-line">
-              <i className="ri-arrow-right-double-fill"></i>
-              <span style={{ whiteSpace: "pre" }}>{line}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="editorNav">
-        <h4>{currentLanguage}</h4>
+        <h4>{state?.fileName || "Untitled"}</h4>
         <div className="btnContainer">
           <button className="btn" onClick={runCode}>
-            <i className="ri-play-large-fill"></i>
+            <i className="ri-play-large-fill"></i> Run
           </button>
+          <button className="btn" onClick={saveFile}>
+            <i class="ri-save-3-fill"></i>
+          </button>
+
           <button className="btn" onClick={toggleTheme}>
             {theme === "catppuccin-dark" ? (
               <i className="ri-sun-line"></i>
@@ -112,17 +138,33 @@ const Editor = () => {
 
       <div className="editorWindow">
         <EditorTab
-          height="90vh"
-          defaultLanguage={currentLanguage}
-          defaultValue={value}
-         theme={theme}
-  options={{
-    fontFamily: 'JetBrains Mono',
-    fontSize: 14,
-    minimap: { enabled: false },
-  }}
+          height="75vh"
+          language={currentLanguage}
+          value={value}
+          theme={theme}
+          options={{
+            fontFamily: "JetBrains Mono",
+            fontSize: 14,
+            minimap: { enabled: false },
+          }}
           onChange={(val) => setValue(val || "")}
         />
+      </div>
+
+      <div className="outputWindow">
+        <div className="terminaltitle">
+          <h1>
+            <i className="ri-terminal-line"></i> Output
+          </h1>
+        </div>
+        <div className="outPut">
+          {output.split("\n").map((line, index) => (
+            <div key={index} className="output-line">
+              <i className="ri-arrow-right-double-fill"></i>
+              <span style={{ whiteSpace: "pre" }}>{line}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
