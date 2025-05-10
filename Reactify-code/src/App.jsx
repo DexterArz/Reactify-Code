@@ -9,10 +9,10 @@ const App = () => {
 
   return (
     <>
-  {/* <Editor></Editor> */}
- {/* <Userdashboard></Userdashboard> */}
+  <Editor></Editor> 
+ <Userdashboard></Userdashboard>
   <Signup>  </Signup>
-  {/* <Signin></Signin> */}
+  <Signin></Signin>
 
 
     </>

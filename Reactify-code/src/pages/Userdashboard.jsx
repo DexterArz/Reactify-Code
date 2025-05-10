@@ -30,7 +30,7 @@ const Userdashboard = () => {
             </button>
           </div>
           <div className="folder">
-            {[...Array(10)].map((_, index) => (
+            {[...Array(20)].map((_, index) => (
               <File key={index} />
             ))}
           </div>

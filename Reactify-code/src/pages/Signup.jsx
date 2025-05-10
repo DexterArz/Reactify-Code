@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useState } from 'react';
-
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 const Signup = () => {
   const [formData, setFormData] = useState({ email: "", username: "", password: "" });
     const [loading, setLoading] = useState(false);
@@ -33,47 +32,24 @@ const Signup = () => {
         }
     };
   return (
-    <div className="signupPage dark-theme"> {/* Add scoped theme class */}
-      <div className="signupBg">
-        <div className="signUp">
+    <div className="signupPage dark-theme">
+      <div className="signupContainer">
+        <form className="signUp">
           <div className="title">
             <h1>Reactify-Code</h1>
-            <br />
             <p>
-              Already have an account? <span>login</span>
+              Already have an account? <span>Login</span>
             </p>
           </div>
           <form onSubmit={handleSubmit}>
 
           <div className="inputs">
-            <input className="field" 
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange} 
-                    />
-
-            <input className="field" 
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange} 
-                    
-                    />
-            <input className="field" 
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange} 
-                    
-                    />
-            <button className="sup-btn" type='submit'>Sign-up</button>
+            <input className="field" type="text" placeholder="UserName" />
+            <input className="field" type="email" placeholder="Email" />
+            <input className="field" type="password" placeholder="Password" />
+            <button className="sup-btn">Sign-up</button>
           </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   );
