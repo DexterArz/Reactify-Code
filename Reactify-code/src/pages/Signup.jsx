@@ -41,13 +41,20 @@ const Signup = () => {
               Already have an account? <span>Login</span>
             </p>
           </div>
-          
-
           <div className="inputs">
-            <input className="field" type="text" placeholder="UserName" />
-            <input className="field" type="email" placeholder="Email" />
-            <input className="field" type="password" placeholder="Password" />
-            <button className="sup-btn">Sign-up</button>
+            <div className="inputWrapper">
+              <FaUser className="icon" />
+              <input className="field" type="text" placeholder="Username" />
+            </div>
+            <div className="inputWrapper">
+              <FaEnvelope className="icon" />
+              <input className="field" type="email" placeholder="Email" />
+            </div>
+            <div className="inputWrapper">
+              <FaLock className="icon" />
+              <input className="field" type="password" placeholder="Password" />
+            </div>
+            <button className="sup-btn">Sign Up</button>
           </div>
         </form>
       </div>
