@@ -1,24 +1,32 @@
 import React from 'react';
-
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 const Signup = () => {
   return (
-    <div className="signupPage dark-theme"> {/* Add scoped theme class */}
-      <div className="signupBg">
-        <div className="signUp">
+    <div className="signupPage dark-theme">
+      <div className="signupContainer">
+        <form className="signUp">
           <div className="title">
             <h1>Reactify-Code</h1>
-            <br />
             <p>
-              Already have an account? <span>login</span>
+              Already have an account? <span>Login</span>
             </p>
           </div>
           <div className="inputs">
-            <input className="field" type="text" placeholder="UserName" />
-            <input className="field" type="email" placeholder="Email" />
-            <input className="field" type="password" placeholder="Password" />
-            <button className="sup-btn">Sign-up</button>
+            <div className="inputWrapper">
+              <FaUser className="icon" />
+              <input className="field" type="text" placeholder="Username" />
+            </div>
+            <div className="inputWrapper">
+              <FaEnvelope className="icon" />
+              <input className="field" type="email" placeholder="Email" />
+            </div>
+            <div className="inputWrapper">
+              <FaLock className="icon" />
+              <input className="field" type="password" placeholder="Password" />
+            </div>
+            <button className="sup-btn">Sign Up</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
