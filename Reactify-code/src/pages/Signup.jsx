@@ -34,14 +34,14 @@ const Signup = () => {
   return (
     <div className="signupPage dark-theme">
       <div className="signupContainer">
-        <form className="signUp">
+        <form className="signUp" onSubmit={handleSubmit}>
           <div className="title">
             <h1>Reactify-Code</h1>
             <p>
               Already have an account? <span>Login</span>
             </p>
           </div>
-          <form onSubmit={handleSubmit}>
+          
 
           <div className="inputs">
             <input className="field" type="text" placeholder="UserName" />
