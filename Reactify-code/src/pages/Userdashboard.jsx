@@ -74,7 +74,7 @@ const Userdashboard = () => {
         </div>
         <div className="folder">
           {files.map((file) => (
-            <File key={file._id} fileName={file.fileName} />
+            <File key={file._id} fileName={file.fileName} fileId={file._id} />
           ))}
         </div>
       </div>
