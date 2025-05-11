@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EditorTab, { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getLanguage } from "../pages/Userdashboard.jsx";
+
 
 const Editor = () => {
 
@@ -10,10 +10,10 @@ const Editor = () => {
   const monaco = useMonaco();
   const { state } = useLocation();
   const [theme, setTheme] = useState("catppuccin-dark");
-  const [currentLanguage, setCurrentLanguage] = useState("javascript");
+  const [currentLanguage, setCurrentLanguage] = useState("");
   const [output, setOutput] = useState("");
   const [value, setValue] = useState("// start writing your code");
-
+const [currentVersion, setcurrentVersion] = useState('')
 
   console.log(currentLanguage);
   
@@ -21,8 +21,10 @@ const Editor = () => {
   // Load file content if passed via state
   useEffect(() => {
     if (state) {
+      setcurrentVersion(state.version)
       setValue(state.content);
       setCurrentLanguage(state.language);
+
     }
   }, [state]);
 
@@ -36,11 +38,9 @@ const Editor = () => {
   const runCode = async () => {
     try {
       const resp = await Api.post("/execute", {
-        language: currentLanguage.toLowerCase(),
-        version: "18.15.0",
-        files: [{ name:"main.js",
-          
-          
+        language: currentLanguage,
+        version: currentVersion,
+        files: [{ 
           content: value }],
       });
       setOutput(resp.data.run.output);
