@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import EditorTab, { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getLanguage } from "../pages/Userdashboard.jsx";
 
 const Editor = () => {
+
+  const navigate = useNavigate();
   const monaco = useMonaco();
   const { state } = useLocation();
   const [theme, setTheme] = useState("catppuccin-dark");
   const [currentLanguage, setCurrentLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [value, setValue] = useState("// start writing your code");
+
+
+  console.log(currentLanguage);
+  
 
   // Load file content if passed via state
   useEffect(() => {
@@ -20,8 +27,10 @@ const Editor = () => {
   }, [state]);
 
   const Api = axios.create({
-    baseURL: "https://emkc.org/api/v2/piston",
-  });
+  baseURL: "https://emkc.org/api/v2/piston",
+  withCredentials: false,  // Explicitly disable credentials
+});
+
 
   // Run code using the Piston API
   const runCode = async () => {
@@ -29,7 +38,10 @@ const Editor = () => {
       const resp = await Api.post("/execute", {
         language: currentLanguage,
         version: "18.15.0",
-        files: [{ content: value }],
+        files: [{ name:"main.js",
+          
+          
+          content: value }],
       });
       setOutput(resp.data.run.output);
     } catch (err) {
@@ -37,10 +49,14 @@ const Editor = () => {
     }
   };
 
+
+
+
+
   const saveFile = async () => {
     try {
       const fileData = {
-        fileName: state?.fileName || "Untitled2",
+        fileName: state?.fileName || "Untitled",
         content: value,
         language: currentLanguage,
       };
@@ -57,6 +73,8 @@ console.log(response);
       } else {
         alert("Error saving file: " + response.data.error);
       }
+      navigate("/userdashboard");
+      
     } catch (err) {
       alert("Failed to save file: " + (err.response?.data?.message || err.message));
     }
@@ -113,6 +131,7 @@ console.log(response);
       prev === "catppuccin-dark" ? "catppuccin-light" : "catppuccin-dark"
     );
   };
+
 
   return (
     <div className={`editor ${theme === "catppuccin-dark" ? "dark-theme" : "light-theme"}`}>

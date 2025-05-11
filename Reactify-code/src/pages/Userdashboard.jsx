@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
 import File from "../components/File";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Userdashboard = () => {
 
+  const navigate = useNavigate();
+
+
   const [fileName, setFileName] = useState("");
+  const [language1, setLanguage1] = useState("");
   const [files, setFiles] = useState([]);
+  
+  useEffect(()=>{
+    setLanguage1(getLanguage(fileName));
+    console.log("Language1:",language1);
+    
+  },[fileName])
 
   // Fetch all files on component mount
   useEffect(() => {
@@ -24,16 +35,20 @@ const Userdashboard = () => {
 
   // Create a new file
   const createFile = async () => {
-    try {
-      await axios.post("/api/files", { fileName });
-      setFileName("");
-      // Refresh file list
-      const response = await axios.get("/api/files");
-      setFiles(response.data);
-    } catch (err) {
-      console.error("Error creating file:", err.message);
-    }
+         navigate("/editor", {
+        state: {
+          fileName: fileName,
+          language: language1,
+          content: "//hii",
+        },
+      });
+    
   };
+
+   
+
+
+  
 
 
   return (
@@ -80,6 +95,62 @@ const Userdashboard = () => {
       </div>
     </div>
   );
+};
+
+
+const languageMap = {
+  js: "JavaScript",
+  ts: "TypeScript",
+  py: "Python",
+  rb: "Ruby",
+  java: "Java",
+  cpp: "C++",
+  c: "C",
+  cs: "C#",
+  php: "PHP",
+  go: "Go",
+  rs: "Rust",
+  kt: "Kotlin",
+  swift: "Swift",
+  dart: "Dart",
+  html: "HTML",
+  css: "CSS",
+  scss: "SASS/SCSS",
+  json: "JSON",
+  xml: "XML",
+  yaml: "YAML",
+  md: "Markdown",
+  sql: "SQL",
+  r: "R",
+  sh: "Shell Script",
+  pl: "Perl",
+  lua: "Lua",
+  tex: "LaTeX",
+  hs: "Haskell",
+  scala: "Scala",
+  jsx: "React (JavaScript)",
+  tsx: "React (TypeScript)",
+  vue: "Vue",
+  pyc: "Python Compiled",
+  pyo: "Python Optimized",
+  ipynb: "Jupyter Notebook",
+  bat: "Batch File",
+  cmd: "Command Script",
+  ps1: "PowerShell",
+  vb: "Visual Basic",
+  asm: "Assembly",
+  ada: "Ada",
+  pas: "Pascal",
+  m: "MATLAB/Objective-C",
+};
+
+
+export const getLanguage = (fileName) => {
+  // Extract the file extension
+  const extension = fileName.split(".").pop().toLowerCase();
+
+  // Find the full form from the language map
+  return languageMap[extension] || "Unknown Language";
 };
 
 export default Userdashboard;
