@@ -9,6 +9,20 @@ dotenv.config({
 
 const PORT = process.env.PORT || 8001
 
+app.post("/api/run", async (req, res) => {
+  try {
+    const { language, version, files } = req.body;
+    const response = await axios.post("https://emkc.org/api/v2/piston/execute", {
+      language,
+      version,
+      files,
+    });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 connectDB()
 .then(()=>{
     app.listen(PORT,()=>{
