@@ -54,6 +54,7 @@ const Userdashboard = () => {
     if (response.status === 200) {
       console.log('Logout successful');
       localStorage.removeItem('userToken');
+      
       navigate('/signin');
     } else {
       console.error('Logout failed:', response.data.message);
