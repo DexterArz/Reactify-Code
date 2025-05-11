@@ -148,6 +148,17 @@ body {
   width: 100%;
 }
 
+.close{
+  font-size: 1.25rem;
+  height: inherit;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
+
 /* Mobile: 2 per row */
 @media (max-width: 768px) {
   .dasNav {

@@ -6,6 +6,7 @@ import './Styles/signup.css'
 import './Styles/editor.css'
 import './Styles/files.css';
 import './Styles/userDashboard.css'
+import './Styles/home.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 
