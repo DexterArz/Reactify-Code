@@ -36,7 +36,7 @@ const Editor = () => {
   const runCode = async () => {
     try {
       const resp = await Api.post("/execute", {
-        language: currentLanguage,
+        language: currentLanguage.toLowerCase(),
         version: "18.15.0",
         files: [{ name:"main.js",
           
