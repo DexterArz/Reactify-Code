@@ -23,3 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# env vars
+
+Reactify-code/ .env
+Reactify-code/ .env.local
+Reactify-code/ .env*.local
+
+
+beckend/ .env
+beckend/ .env.local
+beckend/ .env*.local
