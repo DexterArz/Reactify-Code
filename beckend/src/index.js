@@ -1,23 +1,14 @@
 import { app } from "./app.js";
-import dotenv from 'dotenv';
+
+import dotenv from 'dotenv'
 import connectDB from "./db/index.js";
-import cors from 'cors';
-import axios from 'axios'; // ← make sure axios is installed
 
-// Load environment variables
 dotenv.config({
-  path: "./.env"
-});
+    path:"./.env"
+})
 
-// Enable CORS for Vercel frontend
-app.use(cors({
-  origin: 'https://reactify-code.vercel.app/', // 🔁 Replace with your actual Vercel frontend URL
-  credentials: true
-}));
+const PORT = process.env.PORT || 8001
 
-const PORT = process.env.PORT || 8001;
-
-// Example POST route
 app.post("/api/run", async (req, res) => {
   try {
     const { language, version, files } = req.body;
@@ -32,18 +23,18 @@ app.post("/api/run", async (req, res) => {
   }
 });
 
-// Example GET route
-app.get('/', (req, res) => {
-  res.send('Hello world');
-});
-
-// Connect to DB and start server
 connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server listening on port: http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error(`MongoDB connection Error: ${err}`);
-  });
+.then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server listening on port: http://localhost:${PORT}`);
+        
+    })
+})
+.catch((err)=>{
+    console.log(`MongoDB connection Error:- ${err}`);
+    
+})
+
+app.get('/',(req,res)=>{
+    res.send(`Hello world`)
+})
