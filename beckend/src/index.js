@@ -11,7 +11,7 @@ dotenv.config({
 
 // Enable CORS for Vercel frontend
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app', // 🔁 Replace with your actual Vercel frontend URL
+  origin: 'https://reactify-code.vercel.app/', // 🔁 Replace with your actual Vercel frontend URL
   credentials: true
 }));
 
