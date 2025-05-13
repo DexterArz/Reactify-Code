@@ -21,6 +21,7 @@ const [currentVersion, setcurrentVersion] = useState('')
   // Load file content if passed via state
   useEffect(() => {
     if (state) {
+      setcurrentVersion(state.ver)
       setcurrentVersion(state.version)
       setValue(state.content);
       setCurrentLanguage(state.language);

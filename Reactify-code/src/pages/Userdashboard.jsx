@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import File from "../components/File";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { version } from "mongoose";
 
 const Userdashboard = () => {
   const navigate = useNavigate();
@@ -116,7 +117,7 @@ const Userdashboard = () => {
         </div>
         <div className="folder">
           {files.map((file) => (
-            <File key={file._id} fileName={file.fileName} fileId={file._id} />
+            <File key={file._id} ver={version} fileName={file.fileName} fileId={file._id} />
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const File = ({fileName,fileId}) => {
+const File = ({ver,fileName,fileId}) => {
 // console.log(file?.fileName);
 
 
@@ -13,7 +13,7 @@ const File = ({fileName,fileId}) => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/file/${fileId}`);
       if (response.status === 200) {
-        navigate("/editor", { state: response.data });
+        navigate("/editor", { state: response.data , ver});
       }
     } catch (err) {
       console.error("Error opening file:", err.message);
