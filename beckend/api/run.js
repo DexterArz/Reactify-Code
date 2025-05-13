@@ -8,7 +8,7 @@ dotenv.config();
 // Initialize CORS middleware
 const cors = Cors({
   methods: ['GET', 'POST'],
-  origin: "https://your-frontend-domain.vercel.app",  // Update with your frontend URL
+  origin: "https://reactify-code.vercel.app",  // Update with your frontend URL
   credentials: true,  // Enable cookies if needed
 });
 
