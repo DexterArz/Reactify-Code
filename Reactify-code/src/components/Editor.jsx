@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditorTab, { useMonaco } from "@monaco-editor/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import api from '../config/axios';
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Editor = () => {
   const navigate = useNavigate();
@@ -12,9 +11,7 @@ const Editor = () => {
   const [currentLanguage, setCurrentLanguage] = useState("");
   const [output, setOutput] = useState("");
   const [value, setValue] = useState("// start writing your code");
-  const [currentVersion, setCurrentVersion] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [currentVersion, setcurrentVersion] = useState('')
 
   console.log(currentLanguage);
   
@@ -22,61 +19,63 @@ const Editor = () => {
   // Load file content if passed via state
   useEffect(() => {
     if (state) {
-      setCurrentVersion(state.version);
+      setcurrentVersion(state.ver)
+      setcurrentVersion(state.version)
       setValue(state.content);
       setCurrentLanguage(state.language);
+
     }
   }, [state]);
 
-  const pistonApi = axios.create({
+  const Api = axios.create({
     baseURL: "https://emkc.org/api/v2/piston",
-    headers: {
-      'Content-Type': 'application/json',
-    }
+    withCredentials: false,  // Explicitly disable credentials
   });
+
 
   // Run code using the Piston API
   const runCode = async () => {
-    setIsLoading(true);
-    setError('');
-    setOutput('');
-
     try {
-      const response = await pistonApi.post("/execute", {
+      const resp = await Api.post("/execute", {
         language: currentLanguage,
         version: currentVersion,
-        files: [{ content: value }],
+        files: [{ 
+          content: value }],
       });
-      setOutput(response.data.run.output);
+      setOutput(resp.data.run.output);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to execute code');
-      setOutput('');
-    } finally {
-      setIsLoading(false);
+      setOutput(`Error: ${err.response?.data?.message || err.message}`);
     }
   };
 
-  const saveFile = async () => {
-    setIsLoading(true);
-    setError('');
 
+
+
+
+  const saveFile = async () => {
     try {
       const fileData = {
         fileName: state?.fileName || "Untitled",
         content: value,
         language: currentLanguage,
-        version: currentVersion
       };
 
-      const response = await api.post('/api/v1/file/upload', fileData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/file/upload`, fileData,{
+        withCredentials: true,   // Ensures cookies are sent with the request
+      });
 
-      if (response.data.success) {
-        navigate('/userdashboard');
+      console.log(response);
+
+
+      if (response.status === 201) {
+        alert("File saved successfully!");
+      } else {
+        alert("Error saving file: " + response.data.error);
       }
+      navigate("/userdashboard");
+      
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to save file');
-    } finally {
-      setIsLoading(false);
+      alert("Failed to save file: " + (err.response?.data?.message || err.message));
     }
   };
 
@@ -133,63 +132,57 @@ const Editor = () => {
   };
 
   return (
-    <div className="editor-container">
-      <div className="editor-header">
-        <select
-          value={currentLanguage}
-          onChange={(e) => setCurrentLanguage(e.target.value)}
-          className="language-select"
-        >
-          <option value="">Select Language</option>
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          {/* Add more language options as needed */}
-        </select>
-        
-        <button 
-          onClick={runCode}
-          disabled={isLoading || !currentLanguage}
-          className="run-button"
-        >
-          {isLoading ? 'Running...' : 'Run Code'}
-        </button>
-        
-        <button 
-          onClick={saveFile}
-          disabled={isLoading}
-          className="save-button"
-        >
-          {isLoading ? 'Saving...' : 'Save'}
-        </button>
+    <div className={`editor ${theme === "catppuccin-dark" ? "dark-theme" : "light-theme"}`}>
+      <div className="editorNav">
+        <h4>{state?.fileName || "Untitled"}</h4>
+        <div className="btnContainer">
+          <button className="btn" onClick={runCode}>
+            <i className="ri-play-large-fill"></i> Run
+          </button>
+          <button className="btn" onClick={saveFile}>
+            <i class="ri-save-3-fill"></i>
+          </button>
+          
+          <button className="btn" onClick={toggleTheme}>
+            {theme === "catppuccin-dark" ? (
+              <i className="ri-sun-line"></i>
+            ) : (
+              <i className="ri-moon-line"></i>
+            )}
+          </button>
+        </div>
       </div>
 
-      <EditorTab
-        height="70vh"
-        theme={theme}
-        language={currentLanguage}
-        value={value}
-        onChange={setValue}
-        options={{
-          minimap: { enabled: false },
-          fontSize: 16,
-          wordWrap: 'on',
-          automaticLayout: true,
-        }}
-      />
+      <div className="editorWindow">
+        <EditorTab
+          height="75vh"
+          language={currentLanguage}
+          value={value}
+          theme={theme}
+          options={{
+            fontFamily: "JetBrains Mono",
+            fontSize: 14,
+            minimap: { enabled: false },
+          }}
+          onChange={(val) => setValue(val || "")}
+        />
+      </div>
 
-      {error && (
-        <div className="error-message">
-          {error}
+      <div className="outputWindow">
+        <div className="terminaltitle">
+          <h1>
+            <i className="ri-terminal-line"></i> Output
+          </h1>
         </div>
-      )}
-
-      {output && (
-        <div className="output-container">
-          <h3>Output:</h3>
-          <pre>{output}</pre>
+        <div className="outPut">
+          {output.split("\n").map((line, index) => (
+            <div key={index} className="output-line">
+              <i className="ri-arrow-right-double-fill"></i>
+              <span style={{ whiteSpace: "pre" }}>{line}</span>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

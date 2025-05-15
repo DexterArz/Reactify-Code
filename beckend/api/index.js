@@ -6,9 +6,12 @@ import connectDB from "../src/db/index.js";
 import axios from 'axios';
 import userRouter from '../src/routes/user.router.js';
 import fileRouter from '../src/routes/file.router.js';
+import { app } from "../src/app.js";
 
 // Configure environment variables
-dotenv.config();
+dotenv.config({
+    path:"./.env"
+});
 
 // Initialize express
 const app = express();
@@ -129,4 +132,22 @@ export default async function handler(req, res) {
             message: process.env.NODE_ENV === 'development' ? error.message : 'Internal Server Error'
         });
     }
-} 
+}
+
+const PORT = process.env.PORT || 8001
+
+connectDB()
+.then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server listening on port: http://localhost:${PORT}`);
+        
+    })
+})
+.catch((err)=>{
+    console.log(`MongoDB connection Error:- ${err}`);
+    
+})
+
+app.get('/',(req,res)=>{
+    res.send(`Hello world`)
+}) 
