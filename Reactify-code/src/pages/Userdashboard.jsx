@@ -45,41 +45,45 @@ const Userdashboard = () => {
     });
   };
 
-
   const logout = async () => {
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`, {}, {
-      withCredentials: true, 
-    });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
 
-    if (response.status === 200) {
-      console.log('Logout successful');
-      localStorage.removeItem('userToken');
+      if (response.status === 200) {
+        console.log("Logout successful");
+        localStorage.removeItem("userToken");
 
-      
-      setTimeout(() => {
-        navigate('/signin');
-      }, 1000);
-
-    } else {
-      console.error('Logout failed:', response.data.message);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 1000);
+      } else {
+        console.error("Logout failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error(
+        "Error during logout:",
+        error.response?.data?.message || error.message
+      );
     }
-  } catch (error) {
-    console.error('Error during logout:', error.response?.data?.message || error.message);
-  }
-};
+  };
 
   return (
     <div className="dasMain">
       {showCreateFile && (
         <div className="createFile">
-           <div className="close"><button  onClick={() => setShowCreateFile(false)}>
+          <div className="close">
+            <button onClick={() => setShowCreateFile(false)}>
               <i class="ri-close-fill"></i>
-            </button></div>
-          <div
-            className="Ctitle">
+            </button>
+          </div>
+          <div className="Ctitle">
             <h4>Create File</h4>
-           
           </div>
           <div className="Cinput">
             <input
@@ -117,7 +121,12 @@ const Userdashboard = () => {
         </div>
         <div className="folder">
           {files.map((file) => (
-            <File key={file._id} ver={version} fileName={file.fileName} fileId={file._id} />
+            <File
+              key={file._id}
+              ver={version}
+              fileName={file.fileName}
+              fileId={file._id}
+            />
           ))}
         </div>
       </div>
