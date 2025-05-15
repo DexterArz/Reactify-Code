@@ -20,9 +20,9 @@ const allowedOrigins = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://127.0.0.1:3000'
-];
+].filter(Boolean); // Remove any undefined values
 
-// Configure CORS
+// Configure CORS with credentials
 app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
@@ -36,7 +36,7 @@ app.use(cors({
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
 
 // Middleware
@@ -44,6 +44,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
+// Handle preflight requests
+app.options('*', cors());
 
 // Connect to MongoDB
 let isConnected = false;
@@ -55,6 +58,7 @@ const connectToDatabase = async () => {
     try {
         await connectDB();
         isConnected = true;
+        console.log('MongoDB connected successfully');
     } catch (error) {
         console.error('MongoDB connection error:', error);
         throw error;
@@ -79,17 +83,29 @@ app.post("/api/run", async (req, res) => {
     }
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', environment: process.env.NODE_ENV });
+});
+
 // Handle favicon.ico requests
 app.get('/favicon.ico', (req, res) => {
-    res.status(204).end(); // No content response
+    res.status(204).end();
 });
 
+// Root route
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.send('API is running');
 });
 
-// Add OPTIONS handling for preflight requests
-app.options('*', cors());
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong!'
+    });
+});
 
 // Export the serverless function
 export default async function handler(req, res) {
@@ -109,8 +125,8 @@ export default async function handler(req, res) {
     } catch (error) {
         console.error('Serverless function error:', error);
         return res.status(500).json({ 
-            error: 'Internal Server Error',
-            message: process.env.NODE_ENV === 'development' ? error.message : undefined
+            success: false,
+            message: process.env.NODE_ENV === 'development' ? error.message : 'Internal Server Error'
         });
     }
 } 
