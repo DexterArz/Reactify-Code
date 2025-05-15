@@ -79,6 +79,11 @@ app.post("/api/run", async (req, res) => {
     }
 });
 
+// Handle favicon.ico requests
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end(); // No content response
+});
+
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
